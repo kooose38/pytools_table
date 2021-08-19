@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_sc
 import pandas as pd 
 import numpy as np 
 import os 
+import uuid 
 import pickle
 import matplotlib.pyplot as plt 
 import optuna 
@@ -106,8 +107,9 @@ class XGBoost:
         
     def save_model(self, model):
         print("モデルの保存を行います。")
-        os.makedirs("./model", exist_ok=True)
-        filename = "./model/xgboost.sav"
+        id = str(uuid.uuid4())
+        filename = f"./model/xgb_{id}.sav"
+        os.makedirs(filename, exist_ok=True)
         pickle.dump(model, open(filename, 'wb'))
 
     def train(self,  
