@@ -648,10 +648,15 @@ class Continuous(ModelPipline):
             print("モデルの検証に失敗しました。")
         finally:
             print("変換後のファイルの出力を行います.....")
-            self.x_train.to_csv("./transform/x_train_transcontinus.csv", index=False)
-            self.x_test.to_csv("./transform/x_test_transcontinus.csv", index=False)
             if self.x_val.shape[0] > 0:
-                self.x_val.to_csv("./transform/x_val_transcontius.csv", index=False)
+                return self.x_train, self.x_val, self.x_test
+            else:
+                return self.x_train, self.x_test
+            
+#             self.x_train.to_csv("./transform/x_train_transcontinus.csv", index=False)
+#             self.x_test.to_csv("./transform/x_test_transcontinus.csv", index=False)
+#             if self.x_val.shape[0] > 0:
+#                 self.x_val.to_csv("./transform/x_val_transcontius.csv", index=False)
 
 ###-----------------------------カテゴリー変換--------------------------------------------###
 # !pip install -q category_encoders
@@ -767,9 +772,13 @@ class Categorical(ModelPipline):
         
         finally:
             print("ファイルの出力を行います")       
-            self.x_train.to_csv("./transform/x_train_category.csv", index=False)
-            self.x_test.to_csv("./transform/x_test_category.csv", index=False)
             if self.x_val.shape[0] > 0:
-                self.x_val.to_csv("./transform/x_val_category.csv", index=False)
+                return self.x_train, self.x_val, self.x_test 
+            else:
+                return self.x_train, self.x_test
+#             self.x_train.to_csv("./transform/x_train_category.csv", index=False)
+#             self.x_test.to_csv("./transform/x_test_category.csv", index=False)
+#             if self.x_val.shape[0] > 0:
+#                 self.x_val.to_csv("./transform/x_val_category.csv", index=False)
 
                 
