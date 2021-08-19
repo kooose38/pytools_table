@@ -5,6 +5,7 @@ from sklearn.metrics import log_loss, mean_squared_error, accuracy_score
 from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score
 import pandas as pd 
 import numpy as np 
+import os 
 import pickle
 import matplotlib.pyplot as plt 
 import optuna 
@@ -81,6 +82,7 @@ class XGBoost:
                 
             x_test["predict"] = pred 
             print("テストの予測値をファイルに出力します")
+            os.makedirs("./submission", exist_ok=True)
             x_test.to_csv("./submission/y_test_submission_xgb.csv", index=False)
             
         pred_probe = model.predict(xgb.DMatrix(x_val), ntree_limit=model.best_ntree_limit)
@@ -104,6 +106,7 @@ class XGBoost:
         
     def save_model(self, model):
         print("モデルの保存を行います。")
+        os.makedirs("./model", exist_ok=True)
         filename = "./model/xgboost.sav"
         pickle.dump(model, open(filename, 'wb'))
 
