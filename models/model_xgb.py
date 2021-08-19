@@ -105,6 +105,8 @@ class XGBoost:
         self.plot_feature(model)  #特長量の重要度の可視化を行います  
         self.save_model(model) #モデルの保存
         
+        return model
+        
     def save_model(self, model):
         print("モデルの保存を行います。")
         id = str(uuid.uuid4())
