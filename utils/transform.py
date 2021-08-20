@@ -1,6 +1,7 @@
 ###------------------------------------交差検証---------------------------------------------###
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import minmax_scale
+import pandas as pd 
 
 #Importing the auxiliar and preprocessing librarys 
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
