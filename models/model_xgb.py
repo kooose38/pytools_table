@@ -111,7 +111,7 @@ class XGBoost:
         print("モデルの保存を行います。")
         id = str(uuid.uuid4())
         filename = f"./model/xgb_{id}.sav"
-        os.makedirs(filename, exist_ok=True)
+        os.makedirs("./model", exist_ok=True)
         pickle.dump(model, open(filename, 'wb'))
 
     def train(self,  
