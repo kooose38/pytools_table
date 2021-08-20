@@ -166,6 +166,8 @@ class KerasNet:
         self.plot_metrics(history)
         self.save_model(model)
         
+        return model 
+        
     def save_model(self, model):
         print("モデルの保存を行います。")
         os.makedirs("./model", exist_ok=True)
