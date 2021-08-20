@@ -681,7 +681,7 @@ class Categorical(ModelPipline):
                  method="mean"):
         self.x_train = x_train 
         self.x_test = x_test 
-        self.x_val = val #ターゲットエンコーダーにのみ使います。リークを防ぐため
+        self.x_val = x_val #ターゲットエンコーダーにのみ使います。リークを防ぐため
         self.y_train = y_train 
         self.y_val =y_val
         
