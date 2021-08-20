@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np 
 from sklearn.model_selection import KFold
 from sklearn.base import BaseEstimator, TransformerMixin
-from typing import Union 
+from typing import Union, Tuple 
 
 class TargetEncoder(BaseEstimator, TransformerMixin):
   '''訓練データのラベルを使ってターゲットエンコーダーを行う'''
@@ -13,7 +13,7 @@ class TargetEncoder(BaseEstimator, TransformerMixin):
     self.sample = None 
     self._data_tmp = None 
 
-  def fit(self, x_train, y_train, col: str, method: Union["mean", "median"]="mean"):
+  def fit(self, x_train: pd.DataFrame, y_train: Union[pd.DataFrame, pd.Seriese], col: str, method: Union["mean", "median"]="mean"):
     self.x_train = x_train 
     self.y_train = y_train 
     self.col = col 
@@ -24,7 +24,7 @@ class TargetEncoder(BaseEstimator, TransformerMixin):
       self.sample = self._data_tmp.groupby(col)["target"].median()
     return self.sample 
 
-  def transform(self, x_test, n_splits: int=4):
+  def transform(self, x_test: pd.DataFrame, n_splits: int=4) -> Tuple[pd.DataFrame, pd.DataFrame]:
     test = x_test.copy()
     test[self.col] = test[self.col].map(self.sample)
 
@@ -44,11 +44,11 @@ class FrequenceEncoder(BaseEstimator, TransformerMixin):
     freq = None 
     col = ""
 
-  def fit(self, x_train, col: str):
-    self.col = col 
-    self.freq = x_train[col].value_counts()
+  def fit(self, series: pd.Series):
+    self.col = series.name
+    self.freq = series.value_counts()
 
-  def tranform(self, x_test):
-    test = x_test.copy()
-    return test[self.col].map(freq)
+  def tranform(self, test_series: pd.Series) -> pd.Series:
+    assert self.col == test_series.name 
+    return test_series.map(freq)
 
