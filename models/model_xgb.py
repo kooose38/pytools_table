@@ -132,7 +132,8 @@ class XGBoost:
             x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, random_state=0)
             dtrain = xgb.DMatrix(x_train, label=y_train)
             dtest = xgb.DMatrix(x_val, label=y_val)
-        self.model(dtrain, dtest, y_train, x_test, num_round, early_stopping_rounds, x_val, y_val, param)
+        model = self.model(dtrain, dtest, y_train, x_test, num_round, early_stopping_rounds, x_val, y_val, param)
+        return model 
             
     def load_model(self, filename):
         loaded_model = pickle.load(open(filename, 'rb'))
