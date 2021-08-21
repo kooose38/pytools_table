@@ -165,10 +165,10 @@ class XGBoost:
     else:
       raise NotImplementedError
 
-   def show_weights(self, importance_type: str="gain"):
-     '''show Permutation Importance features'''
-     import eli5
-     eli5.show_weights(self.model, importance_type=importance_type)
+  def show_weights(self, importance_type: str="gain"):
+    '''show Permutation Importance features'''
+    import eli5
+    eli5.show_weights(self.model, importance_type=importance_type)
 
 
     
