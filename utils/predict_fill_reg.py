@@ -5,7 +5,7 @@ import pickle
 import os 
 
 class RegressionForFillna:
-  def __dcc__(self):
+  def __doc__(self):
     '''
     Predict missing values by regression analysis. 
     Make sure that the input data contains no missing values other than the columns you expect.
