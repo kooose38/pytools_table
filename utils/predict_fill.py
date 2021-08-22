@@ -1,8 +1,10 @@
 import pandas as pd 
 from sklearn.linear_model import LinearRegression
-from typing import Union 
+from typing import Union, Dict, Any
 import pickle 
 import os 
+from sklearn.impute import SimpleImputer, KNNImputer
+
 
 class RegressionForFillna:
   def __doc__(self):
@@ -44,4 +46,38 @@ class RegressionForFillna:
     os.makedirs(filepath, exist_ok=True)
     model_path = os.path.join(filepath+"/"+f"reg_fillna_{self.column}.pkl")
     pickle.dump(self.model, open(model_path, "wb"))
+
+
+class KNNForFillna(KNNImputer):
+  def __doc__(self):
+    '''
+    Missing completion is performed from the neighbor relationship between the data by knn.
+    '''
+
+  def __init__(self):
+    self.model = None 
+    self.fill_col = ""
+    self.columns = ""
+
+  def fit(self, x_train: pd.DataFrame, x_test: pd.DataFrame, fill_col: Union[str, int], 
+          n_neighbors: int=2):
+    self.fill_col = fill_col
+    train_c, test_c = x_train.copy(), x_test.copy()
+    dataset = pd.concat([train_c, test_c], axis=0).reset_index().drop(["index"], axis=1)
+    self.model = KNNImputer(n_neighbors=n_neighbors).fit(dataset)
+    self.columns = x_train.columns   
+
+  def predict(self, df: pd.DataFrame) -> pd.DataFrame:
+    assert self.columns.tolist() == df.columns.tolist() 
+
+    df[self.fill_col] = pd.DataFrame(self.model.transform(df), 
+                                     index=df.index, 
+                                     columns=df.columns)[self.fill_col]
+    return df 
+  
+  def save(self, filepath: str):
+    os.makedirs(filepath, exist_ok=True)
+    model_path = os.path.join(filepath+"/"+f"knn_fillna_{str(self.fill_col)}.pkl")
+    pickle.dump(self.model, open(model_path, "wb"))
+    
 
