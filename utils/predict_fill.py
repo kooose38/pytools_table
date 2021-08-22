@@ -3,7 +3,7 @@ from sklearn.linear_model import LinearRegression
 from typing import Union, Dict, Any
 import pickle 
 import os 
-from sklearn.impute import SimpleImputer, KNNImputer
+from sklearn.impute import KNNImputer
 
 
 class RegressionForFillna:
