@@ -13,7 +13,7 @@ class TargetEncoder(BaseEstimator, TransformerMixin):
     self.sample = None 
     self._data_tmp = None 
 
-  def fit(self, x_train: pd.DataFrame, y_train: Union[pd.DataFrame, pd.Seriese], col: str, method: Union["mean", "median"]="mean"):
+  def fit(self, x_train: pd.DataFrame, y_train: Union[pd.DataFrame, pd.Series], col: str, method: Union["mean", "median"]="mean"):
     self.x_train = x_train 
     self.y_train = y_train 
     self.col = col 
