@@ -2,6 +2,7 @@ from typing import Any, Dict, Union, Tuple
 import eli5
 from eli5.sklearn import PermutationImportance
 import numpy as np
+import pandas as pd 
 
 class VizPermitaionImportance:
 
