@@ -11,7 +11,7 @@ class Surrogate:
 
   def __doc__(self):
     '''
-    package: skater (pip install git+https://github.com/oracle.Skater.git)
+    package: skater (pip install git+https://github.com/oracle/Skater.git)
     support: sckit-leran model only 
     purpose: Make it descriptive by creating a simplified surrogate model. 
     By reducing the number of branches, especially in the decision tree, conditional branching that is easy to interpret can be obtained.
