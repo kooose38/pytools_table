@@ -45,7 +45,7 @@ class XGBoost:
   
 
   def _load_params(self, paramas: Dict[str, Any]) -> Dict[str, Any]:
-    for name, value in params.items():
+    for name, value in paarams.items():
       if name in self.params:
         self.params[name] = value 
     return self.paramas
