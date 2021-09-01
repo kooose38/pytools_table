@@ -18,7 +18,7 @@ class RegressionModel:
       self.models = []
       self.models.append(("LinearRegression", 
                      Pipeline([
-                               ("LinearRegression", LinearRegreesion(random_state=random_state))])))
+                               ("LinearRegression", LinearRegreesion())])))
 
     self.models.append(("Ridge",
                      Pipeline([
