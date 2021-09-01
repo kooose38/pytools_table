@@ -45,10 +45,10 @@ class XGBoost:
   
 
   def _load_params(self, paramas: Dict[str, Any]) -> Dict[str, Any]:
-    for name, value in paarams.items():
+    for name, value in paramas.items():
       if name in self.params:
         self.params[name] = value 
-    return self.paramas
+    return self.params
 
   def _create_data(self, x_train: pd.DataFrame, y_train: Union[pd.DataFrame, pd.Series], x_val: pd.DataFrame, y_val: Union[pd.DataFrame, pd.Series]):
     dtrain = xgb.DMatrix(x_train, label=y_train)
