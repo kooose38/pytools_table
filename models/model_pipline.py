@@ -1,6 +1,7 @@
 import pandas as pd 
 from models.sklearn.classifier import ClassifierModel 
 from models.sklearn.regression import RegressionModel 
+from sklearn.metrics import mean_squared_error
 from typing import Union 
 
 class ModelPipline:
@@ -16,7 +17,10 @@ class ModelPipline:
                     'DecisionTreeClassifier',
                     'RandomForestClassifier',
                     'GradientBoostingClassifier',
+                    'GradientBoostingRegression',
+                    'AdaBoostReggressor',
                     'ExtraTreesClassifier']
+    self.model_type = model_type
   
   def predict(self, x_train: pd.DataFrame, y_train: Union[pd.DataFrame, pd.Series],
            x_val: pd.DataFrame, y_val: Union[pd.DataFrame, pd.Series]) -> pd.DataFrame:
@@ -26,21 +30,15 @@ class ModelPipline:
       model.fit(x_train, y_train)
       score = model.score(x_val, y_val)
       model_names.append(name)
-      model_score.append(score)
+      if self.model_type == "classifier":
+        model_score.append(score)
+       elif self.model_type == "regression":
+        model_score.append(mean_squared_error(model.predict(x_val), y_val))
       if name in self.is_tree:
         is_tree.append("●")
       else:
         is_tree.append("✗")
 
-    annotate = []
-    for score in model_score:
-      if score >= .85:
-        annotate.append("high")
-      elif score >= .70:
-        annotate.append("medium")
-      else:
-        annotate.append("low")
-
-    df = pd.DataFrame({"score": model_score, "annotate": annotate, "is_tree": is_tree, "model_names": model_names})
+    df = pd.DataFrame({"score": model_score, "is_tree": is_tree, "model_names": model_names})
     df = df.groupby(["is_tree", "model_names"]).max()
     return df.style.background_gradient(cmap="Blues")
