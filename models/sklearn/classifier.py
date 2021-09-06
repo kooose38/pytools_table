@@ -13,6 +13,12 @@ from sklearn.metrics import log_loss
 from sklearn.pipeline import Pipeline
 
 class ClassifierModel:
+  def __doc__(self):
+    '''
+    注意事項: scikit-learnのバージョンによっては機能しないため、最新のバージョンをインストールしてから実行すること
+    pip install -U scikit-learn 
+    '''
+    
   def __init__(self, random_state=0):
     self.models = []
     self.models.append(("LogReg", 
